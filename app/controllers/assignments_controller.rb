@@ -7,8 +7,10 @@ class AssignmentsController < ApplicationController
   def index
     @assignments = get_all_my_assignments(current_user.id)
      @evaluators = Evaluator.all
+
      @search = Assignment.search(params[:search])
-    @assignments_search = @search.all
+    @assignments = @search.all
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @assignments }
@@ -18,7 +20,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1
   # GET /assignments/1.json
   def show
-    @assignment = Assignment.find(params[:id])
+    @assignment = Assignment.find(parmas[:id])
 
     respond_to do |format|
       format.html # show.html.erb

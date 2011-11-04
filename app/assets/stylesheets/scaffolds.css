@@ -185,7 +185,7 @@ th {
 td {
     padding: 5px 0px;
     border-bottom: 1px solid #799AA5;
-
+    max-width:250px;
 }
 
 tr:hover {

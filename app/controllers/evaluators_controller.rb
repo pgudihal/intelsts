@@ -6,13 +6,16 @@ class EvaluatorsController < ApplicationController
 
 def assign_individual  
    @applications = Application.find(params[:application_ids]) 
+   puts ">>>>>>>>>>>>>>>  #{params[:application_ids]}"
+   puts ">>>>>>>>>>>>>>>  #{Application.find(params[:application_ids]) }"
    @assignments = Assignment.where(:evaluator_id => params[:evaluator_id])
-    
+     puts ">>>>>>>>>>>>>>>  #{params[:evaluator_id]}"
 
   @applications.each do |a|
     if @assignments.where(:application_id => a.id).empty?
     @application = Assignment.new(:evaluator_id => Evaluator.find(params[:evaluator_id]), :application_id => a.id)
-     else
+   puts ">>>>>>>>>>>>>>>  weeeee"  
+   else
     
     end
     end

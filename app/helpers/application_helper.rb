@@ -26,6 +26,8 @@ def get_all_assignments_for_evaluator(id)
 end
 
 
+
+
 #def get_all_applications(id)
 
   #if current_user.admin? or current_user.staff?

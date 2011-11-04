@@ -1,9 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>User:</b>
-  <%= @evaluator.user_id %>
-</p>
+<h1>
+  <%= User.find(@evaluator.user_id).to_label %>
+</h1>
 
 <p>
   <b>Field:</b>
@@ -13,34 +12,40 @@
 <p>
   <b>Address:</b>
   <%= @evaluator.address %>
+    <%= @evaluator.city %>, <%= @evaluator.state %> <%= @evaluator.zip_code %>
 </p>
 
-<p>
-  <b>City:</b>
-  <%= @evaluator.city %>
-</p>
-
-<p>
-  <b>State:</b>
-  <%= @evaluator.state %>
-</p>
-
-<p>
-  <b>Zip code:</b>
-  <%= @evaluator.zip_code %>
-</p>
 
 <p>
   <b>Agreement:</b>
   <%= @evaluator.agreement %>
 </p>
 
-<h1>Listing Assignments</h1>
+<br />
+
+<% @assignments = get_all_assignments_for_evaluator(@evaluator.id) %>
+<% @assignments = @assignments.paginate :page => params[:page], :per_page => 10 %>
+
+<% if @assignments.nil? || @assignments.empty? %>
+  <p>There are no evaluators scoring the application yet.</p>
+  <% else %>
+  <%= render :partial => 'partials/assigned_projects', :locals => {:assignments=> @assignments} %>
+<% end %>
+
+<%= render :partial => 'partials/assign_projects_to_evaluator',:locals => { :button_name => "Create", :evaluators => @evaluator} %>
+
+
+
+<br />
+<br />
+<br />
+<br />
+
+<h1>Multiple Assignment</h1>
 <br />
 <%= form_tag assign_individual_evaluators_path, :method => :post do %>  
 <table>
   <tr>
-    <th></th>
      <th>&nbsp;</th> 
     <th>Applications</th> 
     <th>Field</th>
@@ -48,7 +53,7 @@
     <th></th>
     <th></th>
   </tr>
-
+  
 <% @applications.each do |a| %>
   <tr>
     <td><%= check_box_tag "application_ids[]", a.id, !(Assignment.where(:application_id => a.id, :evaluator_id => @evaluator.id)).empty? %></td>
@@ -61,21 +66,6 @@
 <% end %>
 </table>
  <%= hidden_field_tag "evaluator_id", @evaluator.id %>
+ <%= @evaluator.id %>
   <p><%= submit_tag "Assign to Evaluators" %></p> 
 <% end %>
-
-
-<% @assignments = get_all_assignments_for_evaluator(@evaluator.id) %>
-
-<% if @assignments.nil? || @assignments.empty? %>
-  <p>There are no evaluators scoring the application yet.</p>
-  <% else %>
-  <%= render :partial => 'partials/assigned_projects', :locals => {:assignments=> @assignments} %>
-<% end %>
-</div>
-
-<%= render :partial => 'partials/assign_projects_to_evaluator',:locals => { :button_name => "Create", :evaluators => @evaluator} %>
-
-
-<%= link_to 'Edit', edit_evaluator_path(@evaluator) %> |
-<%= link_to 'Back', evaluators_path %>
