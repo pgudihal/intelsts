@@ -25,7 +25,9 @@ group :assets do
   gem 'uglifier'
 end
 
-
+group :production do
+  gem "pg"
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'
