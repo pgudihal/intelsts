@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @evaluator.user_id %>
+</p>
+
+<p>
+  <b>Field:</b>
+  <%= @evaluator.field_name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @evaluator.address %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @evaluator.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @evaluator.state %>
+</p>
+
+<p>
+  <b>Zip code:</b>
+  <%= @evaluator.zip_code %>
+</p>
+
+<p>
+  <b>Agreement:</b>
+  <%= @evaluator.agreement %>
+</p>
+
+<% @assignments = get_all_assignments_for_evaluator(@evaluator.id) %>
+
+<% if @assignments.nil? || @assignments.empty? %>
+  <p>There are no evaluators scoring the application yet.</p>
+  <% else %>
+  <%= render :partial => 'partials/assigned_projects', :locals => {:assignments=> @assignments} %>
+<% end %>
+</div>
+
+<%= render :partial => 'partials/assign_projects_to_evaluator',:locals => { :button_name => "Create", :evaluators => @evaluator} %>
+
+
+<%= link_to 'Edit', edit_evaluator_path(@evaluator) %> |
+<%= link_to 'Back', evaluators_path %>

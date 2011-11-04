@@ -1,0 +1,38 @@
+<h1>Listing Assignments</h1>
+<br />
+
+<table>
+  <tr>
+    <th>Application</th>
+    <th>Evaluator</th>
+    <th>Research Score</th>
+    <th>Scientific Potential</th>
+    <th>Entry Score</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @assignments.each do |assignment| %>
+  <tr>
+    <td><%= Application.find(assignment.application_id).application_name unless assignment.application_id.nil? %></td>
+    <% if !Evaluator.exists? assignment.evaluator_id %>
+    <td><%= "evaluator does not exist!" %></td>
+    <% else %>
+    <td><%= User.find(Evaluator.find(assignment.evaluator_id).user_id).to_label %></td>
+    <% end %>
+    <td><%= assignment.research_score %></td>
+    <td><%= assignment.scientific_potential%></td>
+    <td><%= assignment.entry_score %></td>
+
+    <td><%= link_to 'Show', assignment %></td>
+    <td><%= link_to image_tag("icons/edit_dg.gif", :border => 0), edit_assignment_path(assignment) %>&nbsp;</td>
+
+    <td><%= link_to image_tag("icons/delete_dg.gif", :border => 0), assignment, confirm: 'Are you sure you want to delete this assigment?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Assignment', new_assignment_path %>

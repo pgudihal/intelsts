@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Application:</b>
+  <%= Application.find(@assignment.application_id).application_name %>
+</p>
+
+<p>
+  <b>Evaluator:</b>
+  <%= User.find(Evaluator.find(@assignment.evaluator_id).user_id).first_name %>
+</p>
+
+<p>
+  <b>Scores:</b>
+  <%= @assignment.research_score %>
+  <%= @assignment.entry_score %>
+  <%= @assignment.scientific_potential %>
+</p>
+
+
+<%= link_to 'Edit', edit_assignment_path(@assignment) %> |
+<%= link_to 'Back to Applications', "/" %>

@@ -1,0 +1,23 @@
+<h1>New assignment</h1>
+
+<%= semantic_form_for @assignment  do |f| %>
+
+   <%= f.inputs do %>
+   <% if (@application_id.nil?  || @application_id.empty?) %>
+      <%= f.input :application_id, :as => :select,  :collection => Application.all.each{|a| a.application_name}, :required => true, :label_method => :to_label, :include_blank => true %>
+     <% end %>
+
+    <%= f.input :evaluator_id, :as => :select, :collection => Evaluator.all.each{|e| User.find(e.user_id)}, :required => false, :label_method => :to_label, :label => 'Evaluator ID'%>
+
+  <%end %>
+
+  <%= f.buttons do %>
+  <%= f.commit_button %>
+  <% end %>
+<% end %>
+
+
+
+<%#= render 'form' ,:locals => {:assignment => @application_id}%>
+
+<%= link_to 'Back', :back %>

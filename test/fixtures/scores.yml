@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  score_id: 1
+  application_id: 1
+  assignment_id: 1
+  research_score: 
+  scientific_potential: 
+  entry_score: 
+
+two:
+  score_id: 1
+  application_id: 1
+  assignment_id: 1
+  research_score: 
+  scientific_potential: 
+  entry_score: 

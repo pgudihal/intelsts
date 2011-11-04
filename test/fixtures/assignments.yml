@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  assignment_id: 1
+  application_id: 1
+  evaluator_id: 1
+  score_id: 1
+
+two:
+  assignment_id: 1
+  application_id: 1
+  evaluator_id: 1
+  score_id: 1

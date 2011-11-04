@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Application:</b>
+  <%#=h Applications.find(Assignments.find(@score.id).id)%>
+</p>
+
+<p>
+  <b>Research score:</b>
+  <%= @score.research_score %>
+</p>
+
+<p>
+  <b>Scientific potential:</b>
+  <%= @score.scientific_potential %>
+</p>
+
+<p>
+  <b>Entry score:</b>
+  <%= @score.entry_score %>
+</p>
+
+
+<%= link_to 'Edit', edit_score_path(@score) %> |
+<%= link_to 'Back', scores_path %>

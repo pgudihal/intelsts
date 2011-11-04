@@ -1,0 +1,15 @@
+<!-- THis displays the assignments for a specific evaluator logged into the system -->
+
+	<% @assignments = get_all_my_assignments(current_user.id) %>
+ <% if @assignments.nil? || @assignments.empty? %>
+  <p> You have not been assigned any reports to score yet.</p>
+  <% else %>
+  <%= render :partial => 'partials/my_assignments', :locals => {:assignments => @assigments} %>
+<% end %>
+
+
+<!-- Show a table of all of the reports that have been assigned to the evaluator:
+
+		-check if the user is an evaluator, otherwise display a list of all reports
+		-the table should also display scores
+		

@@ -1,0 +1,27 @@
+<h1>Listing Evaluators</h1>
+<br/>
+<table>
+  <tr>
+    <th>User</th>
+    <th>Field</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @evaluators.each do |evaluator| %>
+  <tr>
+    <td><%= User.find(evaluator.user_id).to_label %></td>
+    <td><%= evaluator.field_name %></td>
+
+    <td><%= link_to 'Show', evaluator %></td>
+    <td><%= link_to image_tag("icons/edit_dg.gif", :border => 0), edit_evaluator_path(evaluator) %></td>
+    <td><%= link_to image_tag("icons/delete_dg.gif", :border => 0), evaluator, confirm: 'Are you sure?', method: :delete %></td>
+
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Evaluator', new_evaluator_path %>

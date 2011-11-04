@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  application_id: 1
+  field_id: 1
+  applicant: MyString
+
+two:
+  application_id: 1
+  field_id: 1
+  applicant: MyString

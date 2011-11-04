@@ -1,0 +1,29 @@
+<p>
+  <b>Application Name:</b>
+  <%= @application.application_name %>
+</p>
+
+<p>
+  <b>Field:</b>
+  <%= @application.field_name %>
+</p>
+
+<p>
+  <b>Applicant:</b>
+  <%= @application.applicant %>
+</p>
+
+<% @assignments = get_all_assignments_for_project(@application.id) %>
+<% if @assignments.nil? || @assignments.empty? %>
+  <p>There are no evaluators scoring the application yet.</p>
+  <% else %>
+  <%= render :partial => 'partials/assigned_evaluators', :locals => {:assignments=> @assignments} %>
+<% end %>
+<div id="wrap">
+ <%= render :partial => 'partials/assign_evaluators_to_project',:locals => { :button_name => "Create", :applications => @application} %>
+
+
+
+<%= link_to 'Edit', edit_application_path(@application) %> |
+<%= link_to 'Back', applications_path %>
+</div>

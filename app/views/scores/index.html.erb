@@ -1,0 +1,29 @@
+
+<h1>Listing scores</h1>
+<br />
+<table>
+  <tr>
+    <th>Score ID</th>
+    <th>Research score</th>
+    <th>Scientific potential</th>
+    <th>Entry score</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @scores.each do |score| %>
+  <tr>
+  <td><%= score.id%></td>
+    <td><%= score.research_score %></td>
+    <td><%= score.scientific_potential %></td>
+    <td><%= score.entry_score %></td>
+    <td><%= link_to 'Show', score %></td>
+    <td><%= link_to 'Edit', edit_score_path(score) %></td>
+    <td><%= button_to 'Delete', score, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Score', new_score_path %>

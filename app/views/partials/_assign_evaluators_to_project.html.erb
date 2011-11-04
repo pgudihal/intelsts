@@ -1,0 +1,20 @@
+<h2>Assign evaluator to evaluate "<%= @application.application_name %>" </h2>
+
+<%= semantic_form_for @assignment  do |f| %>
+
+   <%= f.inputs do %>
+   <% if (@application.id.nil?) %>
+      <%= f.input :application_id, :as => :select,  :collection => Application.all.each{|a| a.application_name}, :required => true, :label_method => :to_label, :include_blank => true %>
+
+      <% else %>
+      <%= f.input :application_id, :as => :hidden,  :value => @application.id %>
+     <% end %>
+
+    <%= f.input :evaluator_id, :as => :select, :collection => Evaluator.all.each{|e| User.find(e.user_id)}, :required => false, :label_method => :to_label, :label => 'Evaluator ID'%>
+    
+  <%end %>
+
+  <%= f.buttons do %>
+  <%= f.commit_button %>
+  <% end %>
+<% end %>

@@ -1,0 +1,11 @@
+<% if user_signed_in? %>
+
+	<%= render :partial => 'personal_home' %>
+
+<% else %>
+
+<div id="wrap">
+	<%#= render '/users/sign_up' %>
+	<%= render :partial => 'general_home' %>
+	</div>
+<% end %>

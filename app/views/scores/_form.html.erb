@@ -1,0 +1,17 @@
+<%= semantic_form_for @score do |f| %>
+
+  <%= f.inputs do %>
+    <%= f.input :research_score, :label => 'Research Score'%>
+    <%= f.input :scientific_potential, :label => 'Scientific Potential Score'%>
+    <%= f.input :entry_score, :label => 'Entry Score'%>
+
+
+  <%end %>
+  <%= f.buttons do %>
+  <%= f.commit_button %>
+  <% end %>
+<% end %>
+
+
+
+

@@ -1,0 +1,35 @@
+
+<script>
+$(function() {
+    $( "#selectable" ).selectable();
+  });
+  </script>
+
+<h1>Listing Applications</h1>
+<br />
+
+<table>
+  <tr>
+    <th>Application Name</th>
+    <th>Field</th>
+    <th>Applicant</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @applications.each do |application| %>
+  <tr>
+  <td><%= application.application_name %></td>
+    <td><%= application.field_name %></td>
+    <td><%= application.applicant %></td>
+    <td><%= link_to 'Show', application %></td>
+     <td><%= link_to image_tag("icons/edit_dg.gif", :border => 0), edit_application_path(application) %>&nbsp;</td>
+      <td><%= link_to image_tag("icons/delete_dg.gif", :border => 0), application , :confirm => 'Are you sure you wish to delete this application? Evaluators that have been assigned to score this application will no longer be assigned to score this appliecation, and you will lose any of the scores they have already entered in!', method: :delete%>&nbsp;</td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Application', new_application_path %>

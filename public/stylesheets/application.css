@@ -1,0 +1,175 @@
+  *= require formtastic
+  *= require my_formtastic_changes
+
+  @charset "utf-8";
+/* CSS Document */
+html, body {
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:14px;
+        background-color: #808080;
+}
+
+#wrap {
+	width:1000px;
+	margin:0 auto;
+	padding:0;
+        text-align: left;
+        border: 20px solid #1F4A69;
+        background-color: #ffffff;
+}
+
+#table {
+    text-align: left;
+    padding: 10px;
+    
+}
+table {
+    width: 960px;
+}
+td {
+    padding: 5px;
+    border-bottom: 1px dashed #808080;
+}
+
+#header {
+	background:url(/images/logo.jpg) no-repeat top left;
+	height:130px;
+}
+
+#nav {
+	margin:0;
+	padding:0;
+        font-size: 12px;
+	height:30px;
+	background-color: #1F4A69;
+	color: #808080;
+        text-align: center;
+}
+
+#body {
+	margin:0 15px;
+	padding:15px;
+        text-align: left;
+        color: #808080;
+}
+
+h1 {
+  text-align: center;
+}
+#footer {
+	margin:0;
+	padding:10px 15px 5px 15px;
+	text-align:center;
+	font-size: 93%;
+}
+
+#nav ul {
+	display:block;
+	height:40px;
+	width:90em;
+	max-width:1700px;
+	z-index:5;
+	margin: 0;
+	padding: 0;
+	white-space: nowrap;
+	list-style:none;
+	margin:0 auto;
+	font-size:125%;
+	font-weight:bold;
+	color: #ffffff;
+	vertical-align: middle;
+}
+
+#nav li { 
+	display: inline;
+	list-style-type: none;
+	float:left;
+	height:39px;
+	position:relative;
+	padding:0 20px 0 35px;
+	color: #ffffff;
+	margin-top: 6px;
+}
+
+#nav a { 
+	padding:0 10px 0 10px;
+	display:block;
+	height:100%;
+	color: white;
+	vertical-align: middle;
+}
+
+
+
+#nav span:hover {
+	cursor:pointer;
+}
+
+#nav a:link, #nav a:visited {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+#nav a:hover {
+	text-decoration:underline;
+}
+
+h1 {
+    color: #808080;
+    text-align: left;
+}
+
+
+
+
+
+.announce {
+	font-weight: normal;
+	font-size: 95%;
+}
+
+
+div.home {
+    border-bottom: 2px solid #ccc;
+}
+
+.actions {
+    list-style-type: none;
+    width: 900px;
+     background-color: #eeeeee;
+     height: 40px;
+     padding:15px 20px 0px 30px;
+   
+}
+
+.faculty-actions {
+    list-style-type: none;
+    width: 900px;
+     background-color: #ccc;
+     height: 40px;
+     padding:15px 20px 0px 30px;
+
+}
+
+.actions li{
+    display: inline;
+    padding:15px 20px 0px 30px;
+
+}
+
+.faculty-actions li{
+    display: inline;
+    padding:15px 20px 0px 30px;
+ 
+}
+
+.actions li {
+    display: inline;
+    padding:15px 20px 0px 30px;
+}
+
+.paths li{
+    display: inline;
+}
+
+  
