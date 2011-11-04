@@ -1,21 +1,27 @@
 Intelsts::Application.routes.draw do
-   devise_for :users do
+   devise_for :users, :controllers => { :registrations => "registrations" }do
  get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
 end
 
   resources :users
 
-  resources :assignments
-
   resources :scores
 
-  resources :evaluators
+  resources :evaluators do
 
+   collection do
+    post 'assign_individual'
+    post 'create_individual'
+    delete 'delete_individual'
+  end
+end
   resources :fields
 
   resources :applications do
     resources :assignments
   end
+  
+  resources :assignments
 
 
   root :controller => 'home', :action => 'index'

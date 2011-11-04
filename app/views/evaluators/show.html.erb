@@ -35,6 +35,36 @@
   <%= @evaluator.agreement %>
 </p>
 
+<h1>Listing Assignments</h1>
+<br />
+<%= form_tag assign_individual_evaluators_path, :method => :post do %>  
+<table>
+  <tr>
+    <th></th>
+     <th>&nbsp;</th> 
+    <th>Applications</th> 
+    <th>Field</th>
+    <th># of Evaluators grading</th> 
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @applications.each do |a| %>
+  <tr>
+    <td><%= check_box_tag "application_ids[]", a.id, !(Assignment.where(:application_id => a.id, :evaluator_id => @evaluator.id)).empty? %></td>
+    <td><%= a.application_name %></td>
+    <td><%= a.field_name %></td>
+    <td><%= Assignment.where(:application_id => a.id).count %></td>
+   
+    
+  </tr>
+<% end %>
+</table>
+ <%= hidden_field_tag "evaluator_id", @evaluator.id %>
+  <p><%= submit_tag "Assign to Evaluators" %></p> 
+<% end %>
+
+
 <% @assignments = get_all_assignments_for_evaluator(@evaluator.id) %>
 
 <% if @assignments.nil? || @assignments.empty? %>

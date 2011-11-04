@@ -17,6 +17,27 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
 
+   <%= semantic_form_for @evaluator do |f| %>
+
+   <%= f.inputs do %>
+   <% if current_user.admin? || current_user.staff? %>
+    <%= f.input :user_id, :as => :select,  :collection => User.all.each{|u| u.first_name}, :required => true, :label_method => :to_label, :include_blank => false %>
+    <% else %>
+    <%= f.input :user_id, :as => :hidden, :value => current_user.id %>
+    <% end %>
+    <%= f.input :field_name, :label => 'Field'%>
+    <%= f.input :address, :label => 'Address'%>
+    <%= f.input :city, :label => 'City'%>
+    <%= f.input :state, :label => 'State'%>
+    <%= f.input :zip_code, :as => :number, :label => 'Zip Code'%>
+    <%= f.input :agreement, :as => :boolean, :label => 'I agree to the Terms and Agreement' %>
+  <%end %>
+
+  <%= f.buttons do %>
+  <%= f.commit_button %>
+  <% end %>
+<% end %>
+
   <div><%= f.submit "Sign up" %></div>
 <% end %>
 

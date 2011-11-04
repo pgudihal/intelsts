@@ -2,6 +2,38 @@ class EvaluatorsController < ApplicationController
   # GET /evaluators
   # GET /evaluators.json
   before_filter :authenticate_user!
+
+
+def assign_individual  
+   @applications = Application.find(params[:application_ids]) 
+   @assignments = Assignment.where(:evaluator_id => params[:evaluator_id])
+    
+
+  @applications.each do |a|
+    if @assignments.where(:application_id => a.id).empty?
+    @application = Assignment.new(:evaluator_id => Evaluator.find(params[:evaluator_id]), :application_id => a.id)
+     else
+    
+    end
+    end
+
+     respond_to do |format|
+      if @application.save
+        format.html { redirect_to :back }
+        #format.html { redirect_to :back, notice: 'Assignment was successfully created.' }
+        format.json { render json: @assignment, status: :created, location: @assignment }
+      else
+        #format.html { render action: "new" }
+        format.html { redirect_to :back, notice: "The evaluator and project are already assigned to each other!" }
+        format.json { render json: @assignment.errors, status: :unprocessable_entity }
+      end
+  end
+
+   
+
+
+end 
+
   def index
     @evaluators = Evaluator.all
 
@@ -15,6 +47,8 @@ class EvaluatorsController < ApplicationController
   # GET /evaluators/1.json
   def show
     @evaluator = Evaluator.find(params[:id])
+    @evaluators = Evaluator.all
+    @applications = Application.all
     @assignment = Assignment.new
     respond_to do |format|
       format.html # show.html.erb
@@ -35,6 +69,7 @@ class EvaluatorsController < ApplicationController
 
   # GET /evaluators/1/edit
   def edit
+
     @evaluator = Evaluator.find(params[:id])
   end
 

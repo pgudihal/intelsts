@@ -2,9 +2,13 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   before_filter :authenticate_user!
+
+
   def index
     @assignments = get_all_my_assignments(current_user.id)
-
+     @evaluators = Evaluator.all
+     @search = Assignment.search(params[:search])
+    @assignments_search = @search.all
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @assignments }
