@@ -163,4 +163,4 @@ DEPENDENCIES
   sqlite3
   turn
   uglifier
-  will_paginate (~> 3.0.pre2)
+  will_paginate

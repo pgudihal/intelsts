@@ -12,6 +12,7 @@ gem 'formtastic'
 gem 'roo'
 gem 'rubyzip'
 gem 'will_paginate'
+gem 'kaminari'
 gem 'jquery-rails', '>= 1.0.12'
 
 gem "meta_search"
@@ -25,13 +26,8 @@ group :assets do
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
-end
 
-group :production do
-gem 'pg'
-gem 'therubyracer-heroku', '0.8.1.pre3' 
 end
-
 
 # Use unicorn as the web server
 # gem 'unicorn'
