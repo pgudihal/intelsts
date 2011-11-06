@@ -12,7 +12,6 @@ gem 'formtastic'
 gem 'roo'
 gem 'rubyzip'
 gem 'will_paginate'
-gem 'kaminari'
 gem 'jquery-rails', '>= 1.0.12'
 
 gem "meta_search"
