@@ -24,13 +24,14 @@
 <br />
 
 <% @assignments = get_all_assignments_for_evaluator(@evaluator.id) %>
-<% @assignments = @assignments.paginate :page => params[:page], :per_page => 10 %>
+<%# @assignments = @assignments.paginate :page => params[:page], :per_page => 10 %>
 
 <% if @assignments.nil? || @assignments.empty? %>
   <p>There are no evaluators scoring the application yet.</p>
   <% else %>
   <%= render :partial => 'partials/assigned_projects', :locals => {:assignments=> @assignments} %>
 <% end %>
+
 
 <%= render :partial => 'partials/assign_projects_to_evaluator',:locals => { :button_name => "Create", :evaluators => @evaluator} %>
 
@@ -41,31 +42,3 @@
 <br />
 <br />
 
-<h1>Multiple Assignment</h1>
-<br />
-<%= form_tag assign_individual_evaluators_path, :method => :post do %>  
-<table>
-  <tr>
-     <th>&nbsp;</th> 
-    <th>Applications</th> 
-    <th>Field</th>
-    <th># of Evaluators grading</th> 
-    <th></th>
-    <th></th>
-  </tr>
-  
-<% @applications.each do |a| %>
-  <tr>
-    <td><%= check_box_tag "application_ids[]", a.id, !(Assignment.where(:application_id => a.id, :evaluator_id => @evaluator.id)).empty? %></td>
-    <td><%= a.application_name %></td>
-    <td><%= a.field_name %></td>
-    <td><%= Assignment.where(:application_id => a.id).count %></td>
-   
-    
-  </tr>
-<% end %>
-</table>
- <%= hidden_field_tag "evaluator_id", @evaluator.id %>
- <%= @evaluator.id %>
-  <p><%= submit_tag "Assign to Evaluators" %></p> 
-<% end %>

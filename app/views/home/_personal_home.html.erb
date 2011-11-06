@@ -1,12 +1,24 @@
 <!-- THis displays the assignments for a specific evaluator logged into the system -->
 
-<% @assignments = get_all_my_assignments(current_user.id) %>
+<%# @assignments = get_all_my_assignments(current_user.id) %>
  <% if @assignments.nil? || @assignments.empty? %>
   <p> You have not been assigned any reports to score yet.</p>
   <% else %>
   <%= render :partial => 'partials/my_assignments', :locals => {:assignments => @assigments} %>
 <% end %>
 
+<br />
+<br />
+<br />
+<br />
+
+<% @applications = Application.joins(:assignments).group(:application_id).having("count(*) < ?", 3 ) %>
+
+ <% if @applications.nil? || @applications.empty? %>
+  <p> All applications have been assigned to at least 3 evaluators!</p>
+  <% else %>
+  <%= render :partial => 'partials/less_than_three_assigned_to_evaluate', :locals => {:assignments => @assigments} %>
+<% end %>
 
 
 

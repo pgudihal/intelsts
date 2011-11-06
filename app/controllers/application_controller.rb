@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+
+  
 	def get_all_assignments_for_project(id)
    if current_user.admin? or current_user.staff?
     all_assignments = Assignment.where(:application_id => id).order('assignments.id DESC')   

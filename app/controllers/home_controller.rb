@@ -2,7 +2,7 @@ class HomeController < ApplicationController
 	#before_filter :authenticate_user!
 
 	def index
-
+		@assignments = get_all_my_assignments(current_user.id) 
 		render :action => params[:home], :layout => "application"
 	end
 

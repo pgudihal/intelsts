@@ -6,10 +6,11 @@ class AssignmentsController < ApplicationController
 
   def index
     @assignments = get_all_my_assignments(current_user.id)
+
      @evaluators = Evaluator.all
 
      @search = Assignment.search(params[:search])
-    @assignments = @search.all
+    #@assignments = @search.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -70,7 +71,8 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       if @assignment.update_attributes(params[:assignment])
         #format.html { redirect_to Application.find(@assignment.application_id), notice: 'Assignment was successfully updated.' }
-        format.html { redirect_to Application.find(@assignment.application_id) }
+        #format.html { redirect_to Application.find(@assignment.application_id) }
+        format.html { redirect_to :back }
 
         format.json { head :ok }
       else

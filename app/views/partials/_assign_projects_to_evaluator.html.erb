@@ -1,19 +1,28 @@
-<h3>Assign project for "<%= User.find(Evaluator.find(@evaluator.id).user_id).to_label unless @evaluator.nil? %>" to evaluate</h3>
 
-<%= semantic_form_for @assignment  do |f| %>
-   <%= f.inputs do %>
-  
-      <%= f.input :application_id, :as => :select,  :collection => Application.all.each{|a| a.application_name}, :required => true, :label_method => :to_label, :include_blank => true %>
-
-<% if (@evaluator.id.nil?) %>
-    <%= f.input :evaluator_id, :as => :select, :collection => Evaluator.all.each{|e| User.find(e.user_id)}, :required => false, :label_method => :to_label, :label => 'Evaluator ID'%>
+<h1>Multiple Assignment</h1>
+<br />
+<%#= paginate @applications %>
+<%= form_tag assign_individual_evaluators_path, :method => :post do %>  
+<table>
+  <tr>
+     <th>&nbsp;</th> 
+    <th>Applications</th> 
+    <th>Field</th>
+    <th># of Evaluators grading</th> 
+    <th></th>
+    <th></th>
+  </tr>
+<% @applications.each do |a| %>
+  <tr>
+    <td><%= check_box_tag "application_ids[]", a.id, !(Assignment.where(:application_id => a.id, :evaluator_id => @evaluator.id)).empty? %></td>
+    <td><%= a.application_name %></td>
+    <td><%= a.field_name %></td>
+    <td><%= Assignment.where(:application_id => a.id).count %></td>
+   
     
-  <% else %>
-      <%= f.input :evaluator_id, :as => :hidden,  :value => @evaluator.id %>
-   <% end %>
-   <% end %>
-
-  <%= f.buttons do %>
-  <%= f.commit_button %>
-  <% end %>
+  </tr>
+<% end %>
+</table>
+ <%= hidden_field_tag "evaluator_id", @evaluator.id %>
+  <p><%= submit_tag "Assign to Evaluators" %></p> 
 <% end %>

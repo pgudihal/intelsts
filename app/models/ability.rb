@@ -7,6 +7,29 @@ class Ability
         can :manage, :all
     else
         
+    if user.staff?
+        can :show, :all
+    else
+      can :edit, User do |u|
+      u.id == user.id
+      end
+        
+      can :show, User do |u|
+      u.id == user.id
+      end
+
+      can :update, User do |u|
+        u.id == user.id
+      end
+      
+      can :show, Assignment do |a|
+        !Assignment.find(:all, :conditions => {:evaluator_id => user.id, :application_id => a.application_id}).empty?
+      end
+      
+      can :show, Application do |a|
+        !Application.find(:all, :conditions => {:assignment.evaluator_id => user.id, :application_id => a.application_id}).empty?
+      end
+        
     end
     # Define abilities for the passed in user here. For example:
     #

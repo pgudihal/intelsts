@@ -13,6 +13,7 @@ end
     post 'assign_individual'
     post 'create_individual'
     delete 'delete_individual'
+    get 'mass_assign'
   end
 end
   resources :fields

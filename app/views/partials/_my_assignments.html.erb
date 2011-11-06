@@ -11,7 +11,7 @@
     <th></th>
   </tr>
 
-<% @assignments = @assignments.paginate :page => params[:page], :per_page => 10 %>
+<%# Kaminari.paginate_array(@assignments).page(params[:page]).per(10) %>
 <% @assignments.each do |a| %>
   <tr>
     <td><%=h Application.find(a.application_id).application_name%></td>
@@ -27,7 +27,6 @@
   </tr>
 <% end %>
 </table>
-
+<%#= paginate @assignments %>
 <br />
-<%= will_paginate @assignments %>
 <%= link_to 'New assignment', new_assignment_path %>

@@ -5,26 +5,26 @@ class EvaluatorsController < ApplicationController
 
 
 def assign_individual  
-   @applications = Application.find(params[:application_ids]) 
-   puts ">>>>>>>>>>>>>>>  #{params[:application_ids]}"
-   puts ">>>>>>>>>>>>>>>  #{Application.find(params[:application_ids]) }"
-   @assignments = Assignment.where(:evaluator_id => params[:evaluator_id])
-     puts ">>>>>>>>>>>>>>>  #{params[:evaluator_id]}"
+   @applications = Application.find(params[:application_ids])
 
+   @assignments = Assignment.where(:evaluator_id => params[:evaluator_id])
+
+unless @applications.empty? 
   @applications.each do |a|
-    if @assignments.where(:application_id => a.id).empty?
-    @application = Assignment.new(:evaluator_id => Evaluator.find(params[:evaluator_id]), :application_id => a.id)
-   puts ">>>>>>>>>>>>>>>  weeeee"  
-   else
-    
-    end
-    end
+
+     if @assignments.empty? or @assignments.where(:application_id => a.id).empty?
+      @assignment = Assignment.create(:evaluator_id => params[:evaluator_id], :application_id => a.id)
+     else
+     end
+
+  end
+end
 
      respond_to do |format|
-      if @application.save
+      if !@assignment.nil? and @assignment.save 
         format.html { redirect_to :back }
         #format.html { redirect_to :back, notice: 'Assignment was successfully created.' }
-        format.json { render json: @assignment, status: :created, location: @assignment }
+        format.json { render json: a, status: :created, location: a }
       else
         #format.html { render action: "new" }
         format.html { redirect_to :back, notice: "The evaluator and project are already assigned to each other!" }
@@ -51,7 +51,7 @@ end
   def show
     @evaluator = Evaluator.find(params[:id])
     @evaluators = Evaluator.all
-    @applications = Application.all
+    @applications = Application.order('application_name').page(params[:page])
     @assignment = Assignment.new
     respond_to do |format|
       format.html # show.html.erb

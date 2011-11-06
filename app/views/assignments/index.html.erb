@@ -5,7 +5,7 @@
   </p-->
   <!--p class="button"><%#= f.submit "Search" %></p-->
 <%# end %>
-
+<%#= paginate @assignments %>
 <table>
   <tr>
     <th>Application</th>
@@ -39,5 +39,5 @@
 </table>
 
 <br />
-
+<%#= paginate @assignments %>
 <%= link_to 'New Assignment', new_assignment_path %>
