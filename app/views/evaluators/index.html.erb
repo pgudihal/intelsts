@@ -1,9 +1,10 @@
 <h1>Listing Evaluators</h1>
 <br/>
-<table>
+
+<table class="pretty">
   <tr>
-    <th>User</th>
-    <th>Field</th>
+    <th><%= sortable "User.find(evaluator.user_id).last_name", "User" %></th>
+    <th><%= sortable "field_name" %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,13 +15,22 @@
     <td><%= User.find(evaluator.user_id).to_label %></td>
     <td><%= evaluator.field_name %></td>
 
+    <% if can? :read, evaluator %>
     <td><%= link_to 'Show', evaluator %></td>
+  <% end %>
+      <% if can? :update, evaluator %>
     <td><%= link_to image_tag("icons/edit_dg.gif", :border => 0), edit_evaluator_path(evaluator) %></td>
+  <% end %>
+      <% if can? :destroy, evaluator %>
     <td><%= link_to image_tag("icons/delete_dg.gif", :border => 0), evaluator, confirm: 'Are you sure?', method: :delete %></td>
-
+  <% end %>
   </tr>
 <% end %>
 </table>
+
+<div class="digg_pagination">
+    <%= will_paginate @applications, :container => false %>
+  </div>
 
 <br />
 

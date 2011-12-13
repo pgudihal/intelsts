@@ -2,5 +2,14 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @application %> |
-<%= link_to 'Back', applications_path %>
+<br />
+ <br/>
+
+<% if current_user.admin? or current_user.staff? %>
+<div id="wrap">
+ <%= render :partial => 'partials/assign_evaluators_to_project',:locals => { :button_name => "Create", :applications => @application} %>
+ <% end %>
+
+
+
+<%= link_to 'Show', @application %>

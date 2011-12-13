@@ -9,9 +9,15 @@
 </p>
 
 <p>
+  <b>File Name:</b>
+  <%= @application.filename%>
+</p>
+
+<p>
   <b>Applicant:</b>
   <%= @application.applicant %>
 </p>
+
 
 <% @assignments = get_all_assignments_for_project(@application.id) %>
 <% if @assignments.nil? || @assignments.empty? %>
@@ -19,11 +25,11 @@
   <% else %>
   <%= render :partial => 'partials/assigned_evaluators', :locals => {:assignments=> @assignments} %>
 <% end %>
+
+<% if current_user.admin? or current_user.staff? %>
 <div id="wrap">
  <%= render :partial => 'partials/assign_evaluators_to_project',:locals => { :button_name => "Create", :applications => @application} %>
 
 
-
-<%= link_to 'Edit', edit_application_path(@application) %> |
-<%= link_to 'Back', applications_path %>
+<%= link_to 'Edit', edit_application_path(@application) %> | <% end %>
 </div>

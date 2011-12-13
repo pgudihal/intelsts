@@ -18,8 +18,12 @@
     <td><%= score.scientific_potential %></td>
     <td><%= score.entry_score %></td>
     <td><%= link_to 'Show', score %></td>
+     <% if can? :update, score %>
     <td><%= link_to 'Edit', edit_score_path(score) %></td>
+  <% end %>
+  <% if can? :destroy, score %>
     <td><%= button_to 'Delete', score, confirm: 'Are you sure?', method: :delete %></td>
+  <% end %>
   </tr>
 <% end %>
 </table>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111020054655) do
+ActiveRecord::Schema.define(:version => 20111108223439) do
 
   create_table "applications", :force => true do |t|
     t.string   "applicant"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(:version => 20111020054655) do
     t.datetime "updated_at"
     t.string   "field_name"
     t.string   "application_name"
+    t.integer  "app_client_id"
+    t.string   "filename"
   end
 
   create_table "assignments", :force => true do |t|
@@ -30,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20111020054655) do
     t.float    "research_score"
     t.float    "entry_score"
     t.float    "scientific_potential"
+    t.boolean  "flag",                 :default => false
   end
 
   create_table "evaluators", :force => true do |t|

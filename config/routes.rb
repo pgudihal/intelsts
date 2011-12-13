@@ -16,14 +16,18 @@ end
     get 'mass_assign'
   end
 end
-  resources :fields
 
-  resources :applications do
-    resources :assignments
+  resources :applications do 
+      post 'parse', :on => :collection
   end
   
-  resources :assignments
+  resources :assignments do
+    member do
+      post 'download'
+    end
+  end
 
+ 
 
   root :controller => 'home', :action => 'index'
 

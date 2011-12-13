@@ -2,10 +2,31 @@ class ApplicationsController < ApplicationController
   # GET /applications
   # GET /applications.json
 before_filter :authenticate_user!
-  
-  def index
-    @applications = Application.all
+load_and_authorize_resource
 
+def parse
+    metadata = Spreadsheet.open('stsdata.xls')
+    book1 = metadata.worksheet 0
+    book1.each 1 do |row|
+    #puts row
+    @application = Application.new
+    @application.applicant = row[0] + " " + row[1]
+    @application.application_name = row[64]
+    @application.app_client_id = row[73]
+    @application.save!
+    end
+
+     respond_to do |format|
+      format.html { redirect_to applications_url, notice: 'New Applications were successfully imported'  }
+      format.json { head :ok }
+    end
+  end
+  
+helper_method :sort_column, :sort_direction
+
+  def index
+    @search = Application.search(params[:search])
+    @applications =  Application.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 10)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @applications }
@@ -15,9 +36,9 @@ before_filter :authenticate_user!
   # GET /applications/1
   # GET /applications/1.json
   def show
+    
     @application = Application.find(params[:id])
     @assignment = Assignment.new
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @application }
@@ -28,7 +49,6 @@ before_filter :authenticate_user!
   # GET /applications/new.json
   def new
     @application = Application.new 
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @application }
@@ -37,6 +57,7 @@ before_filter :authenticate_user!
 
   # GET /applications/1/edit
   def edit
+    @assignment = Assignment.new
     @application = Application.find(params[:id])
   end
 
@@ -82,11 +103,21 @@ before_filter :authenticate_user!
     @assignments.each do |a|
       a.destroy
     end
+
      @application.destroy
+     
     respond_to do |format|
       format.html { redirect_to applications_url }
       format.json { head :ok }
     end
   end
-
+  
+  private
+    def sort_column
+      Application.column_names.include?(params[:sort]) ? params[:sort] : "application_name"
+    end
+    
+    def sort_direction  
+      %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+    end
 end

@@ -1,27 +1,51 @@
-<h1>Listing Users</h1>
+<h1 class = "left" >Listing Users </h1>
+
+<%= form_for @search do |f| %>
+  <p class="right">
+    <%= f.text_field :first_name_or_last_name_or_email_contains %>
+    <%= f.submit "Search" %>
+  </p>
+<% end %>
+
 <br />
-<table>
+<br />
+
+<table class="pretty">
   <tr>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Email</th>
+    <th><%= sortable "first_name", "First Name" %></th>
+    <th><%= sortable "last_name", "Last Name" %></th>
+    <th><%= sortable "email", "Email" %></th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
+
 
 <% @users.each do |user| %>
   <tr>
     <td><%= user.first_name %></td>
     <td><%= user.last_name %></td>
     <td><%= user.email %></td>
+        <% if can? :read, user %>
+          <% if can? :read, user %>
     <td><%= link_to 'Show', user %></td>
-    <td><%= link_to image_tag("icons/edit_dg.gif", :border => 0), edit_user_path(user) %></td>
-    <td><%= link_to image_tag("icons/delete_dg.gif", :border => 0), user, confirm: 'Are you sure?', method: :delete %></td>
+  <% end %>
+  <% end %>
+    <td><% if can? :update, user %>
+    <%= link_to image_tag("icons/edit_dg.gif", :border => 0), edit_user_path(user) %>
+  <% end %></td>
+      <td><% if can? :destroy, user %>
+    <%= link_to image_tag("icons/delete_dg.gif", :border => 0), user, confirm: 'Are you sure?', method: :delete %>
+  <% end %></td>
   </tr>
 <% end %>
 </table>
 
+<div class="digg_pagination">
+    <%= will_paginate @applications, :container => false %>
+  </div>
+
 <br />
 
-<%= link_to 'New User', new_user_path %>
+<!-- must change this to work if an admin is logged in -->
+<%#= link_to 'New User', new_user_path %>

@@ -1,3 +1,7 @@
+<p>
+<%=button_to "Download File", :action=>'download'%>
+</p>
+
 </br>
 <%= semantic_form_for @assignment  do |f| %>
 
@@ -16,6 +20,9 @@
      <%= f.input :research_score, :as => :numeric, :label => 'Research Score'%>
     <%= f.input :scientific_potential, :as => :numeric, :label => 'Scientific Potential Score'%>
     <%= f.input :entry_score, :as => :numeric, :label => 'Entry Score'%>
+
+    <%= f.input :flag, :as => :boolean, :label => 'This application violates the rules of eligibility' %>
+</p>
 <% end %>
    
   

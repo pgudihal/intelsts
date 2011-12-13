@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+<%=button_to "Download File", :action=>'download'%>
+</p>
+
+<p>
   <b>Application:</b>
   <%= Application.find(@assignment.application_id).application_name %>
 </p>
@@ -17,6 +21,13 @@
   <%= @assignment.scientific_potential %>
 </p>
 
+<p>
+ <b>Does this application violate the rules of eligibility?  </b>
+ <%= @assignment.flag %>
+</p>
+</p>
 
-<%= link_to 'Edit', edit_assignment_path(@assignment) %> |
+<% if current_user.staff? or current_user.admin? %>
+<%= link_to 'Edit', edit_assignment_path(@assignment) %> 
+ | <%end%>
 <%= link_to 'Back to Applications', "/" %>

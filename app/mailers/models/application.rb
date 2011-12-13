@@ -2,7 +2,7 @@ class Application < ActiveRecord::Base
 has_many :assignments
 #accepts_nested_attributes_for :assignments, :allow_destroy => true
 
-attr_accessible :field_name, :created_at, :updated_at, :field_id, :application_name, :applicant, :filename
+attr_accessible :field_name, :created_at, :updated_at, :field_id, :application_name, :applicant
 
 #TODO named_scope :all "gets all applications in the system, should only be accessible to admin/staff later on"
 

@@ -6,19 +6,31 @@
   <!--p class="button"><%#= f.submit "Search" %></p-->
 <%# end %>
 <%#= paginate @assignments %>
-<table>
+
+<h1 class = "left" >All Assignments</h1>
+
+<br />
+<br />
+
+<table class="pretty">
   <tr>
-    <th>Application</th>
-    <th>Evaluator</th>
-    <th>Research Score</th>
-    <th>Scientific Potential</th>
-    <th>Entry Score</th>
+    <th><%= sortable "Application.find(assignment.application_id).application_name", "Application" %></th>
+    <th><%= sortable "User.find(Evaluator.find(assignment.evaluator_id).last_name", "Evaluator" %></th>
+    <th><%= sortable "research_score" %></th>
+    <th><%= sortable "scientific_potential" %></th>
+    <th><%= sortable "entry_score" %></th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
+<% if @assignments.empty? %>
+<p>You have no applications assigned to you to evaluate.</p>
+<% end %>
+
 <% @assignments.each do |assignment| %>
+
+<% if (assignment.evaluator_id != nil) %>
   <tr>
     <td><%= Application.find(assignment.application_id).application_name unless assignment.application_id.nil? %></td>
     <% if !Evaluator.exists? assignment.evaluator_id %>
@@ -30,14 +42,22 @@
     <td><%= assignment.scientific_potential%></td>
     <td><%= assignment.entry_score %></td>
 
+<% if can? :read, assignment %>
     <td><%= link_to 'Show', assignment %></td>
+  <% end %>
+    <% if can? :update, assignment %>
     <td><%= link_to image_tag("icons/edit_dg.gif", :border => 0), edit_assignment_path(assignment) %>&nbsp;</td>
-
+  <% end %>
+  <% if can? :destroy, assignment %>
     <td><%= link_to image_tag("icons/delete_dg.gif", :border => 0), assignment, confirm: 'Are you sure you want to delete this assigment?', method: :delete %></td>
+  <% end %>
   </tr>
+
+  <%end%>
 <% end %>
 </table>
 
+
 <br />
-<%#= paginate @assignments %>
+
 <%= link_to 'New Assignment', new_assignment_path %>

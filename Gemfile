@@ -5,14 +5,15 @@ gem 'rails', '3.1.0'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'pg'
 gem "devise"
 gem 'cancan'
 gem 'formtastic'
-gem 'roo'
+gem 'spreadsheet'
 gem 'rubyzip'
-gem 'will_paginate'
+gem "will_paginate", "~> 3.0.pre2"
 gem 'jquery-rails', '>= 1.0.12'
+gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
 
 gem "meta_search"
 
@@ -25,12 +26,10 @@ group :assets do
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
-
 end
 
 group :production do
-gem 'pg'
-gem 'therubyracer-heroku', '0.8.1.pre3' 
+  gem "pg"
 end
 
 # Use unicorn as the web server

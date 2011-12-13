@@ -4,25 +4,37 @@
 <%#= paginate @applications %>
 <%= form_tag assign_individual_evaluators_path, :method => :post do %>  
 <table>
-  <tr>
-     <th>&nbsp;</th> 
+    <th>&nbsp;</th> 
     <th>Applications</th> 
     <th>Field</th>
     <th># of Evaluators grading</th> 
     <th></th>
     <th></th>
-  </tr>
+  
 <% @applications.each do |a| %>
+ <% if Assignment.where(:application_id => a.id, :evaluator_id => @evaluator.id).empty? %>
   <tr>
+    <td class="selected"> <%= check_box_tag "application_ids[]", a.id, !(Assignment.where(:application_id => a.id, :evaluator_id => @evaluator.id)).empty? %></td>
+    <td><%= a.application_name %></td>
+    <td><%= a.field_name %></td>
+    <td><%= Assignment.where(:application_id => a.id).count %></td> 
+    
+  </tr>
+
+  <% else %>
+
+  <tr class="assigned">
     <td><%= check_box_tag "application_ids[]", a.id, !(Assignment.where(:application_id => a.id, :evaluator_id => @evaluator.id)).empty? %></td>
     <td><%= a.application_name %></td>
     <td><%= a.field_name %></td>
-    <td><%= Assignment.where(:application_id => a.id).count %></td>
-   
+    <td><%= Assignment.where(:application_id => a.id).count %></td> 
     
   </tr>
 <% end %>
+<% end %>
 </table>
+
+<br />
  <%= hidden_field_tag "evaluator_id", @evaluator.id %>
   <p><%= submit_tag "Assign to Evaluators" %></p> 
 <% end %>

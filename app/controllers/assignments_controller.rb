@@ -2,11 +2,31 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   before_filter :authenticate_user!
+  load_and_authorize_resource
 
+  helper_method :sort_column, :sort_direction
+
+  def download
+    if (Application.find(Assignment.find(params[:id]).application_id).filename != nil)
+    send_file("#{Rails.root}/public/downloads/#{Application.find(Assignment.find(params[:id]).application_id).filename}", :filename => "#{Application.find(Assignment.find(params[:id]).application_id).filename}", :type=>"application/pdf" )
+    else
+     respond_to do |format|
+      format.html { redirect_to :back, notice: "File was not found. Please contact the site administrator." }
+
+    end
+    end
+  end
 
   def index
-    @assignments = get_all_my_assignments(current_user.id)
+    #@search = Assignment.joins(:evaluator => :user).where(:users => {:id => current_user.id}).where("name LIKE ?", "#{params[:search]}")
+    
+    if (current_user.admin? || current_user.staff?)
+    @assignments = Assignment.all
 
+    else
+    @assignments = Assignment.joins(:evaluator => :user).where(:users => {:id => current_user.id})
+    end
+    #@assignments = Assignment.all
      @evaluators = Evaluator.all
 
      @search = Assignment.search(params[:search])
@@ -21,7 +41,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1
   # GET /assignments/1.json
   def show
-    @assignment = Assignment.find(parmas[:id])
+    @assignment = Assignment.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -109,9 +129,16 @@ def get_all_my_assignments(id)
   if current_user.admin? or current_user.staff?
     all_assignments = Assignment.order('assignments.id DESC')   
   else
-    all_assignments = Assignment.where(:evaluator_id => current_user.id).order('assignments.id DESC')
+    all_assignments = Assignment.where(:evaluator_id => id).order('assignments.id DESC')
   end
 end
 
-
+private
+  def sort_column
+    Assignment.column_names.include?(params[:sort]) ? params[:sort] : "application_id"
+  end
+    
+  def sort_direction  
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+  end
 end

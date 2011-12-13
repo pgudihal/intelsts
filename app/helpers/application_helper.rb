@@ -24,6 +24,28 @@ def get_all_assignments_for_evaluator(id)
      
  #end
 end
+  
+  def sortable(column, title = nil)
+    title ||= column.titleize
+    css_class = (column == sort_column) ? "current #{sort_direction}" : nil  
+    direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
+    link_to title, {:sort => column, :direction => direction} , {:class => css_class}
+  end
+
+def parse_excel(filename)
+  metadata = Spreadsheet.open(filename)
+  book1 = metadata.worksheet 0
+  book1.each 1 do |row|
+    #puts row
+    @application = Application.new
+    @application.applicant = row[0] + " " + row[1]
+    @application.application_name = row[64]
+    @application.app_client_id = row[73]
+    @application.save!
+  end
+end
+end
+
 
 
 
@@ -47,5 +69,3 @@ end
 	#TODO get_all_my_scores(id)
 
 	#TODO get_all_applications_in_category(id)
-
-end

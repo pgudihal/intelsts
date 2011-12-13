@@ -7,10 +7,13 @@
 
 <li><%= link_to content_tag(:div,"", :class => "header-nav"), "/" %></li>
 
+<% if current_user.admin? or current_user.staff? %>
     <li><%= link_to 'Applications', applications_path %></li>
     <li><%= link_to 'Assignments', assignments_path %></li>
     <li><%= link_to 'Evaluators', evaluators_path %></li>
     <li><%= link_to 'Users', users_path %></li>
+    <% end %>
+    <li><%= link_to 'My Information', current_user %></li>
     <% if user_signed_in? %>
       <li ><%= link_to 'Logout', destroy_user_session_path %></li>
     <% else %>

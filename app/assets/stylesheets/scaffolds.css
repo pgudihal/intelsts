@@ -79,6 +79,19 @@ table {
   margin: 0;
 }
 
+#wrap-search {
+  width:800px;
+}
+
+.left{
+  float:left;
+  width:685px;
+}
+.right{
+  float:left;
+  margin: -4px;
+}
+
 body {
   background:url(background.png);
   color: #333;
@@ -165,6 +178,10 @@ body {
   text-decoration: underline;
 }
 
+#nav a:visited { 
+  font-weight: bold;
+}
+
 #table {
     text-align: left;
     padding: 10px;
@@ -179,6 +196,7 @@ th {
   font-size: 16px;
   padding:0 0 10px 0;
   border-bottom: 2px solid #152737;
+  background-image: url(background.png) ;
 }
 
 
@@ -188,9 +206,26 @@ td {
     max-width:250px;
 }
 
+tr.assigned{
+  background-color:orange;
+}
+
 tr:hover {
   background-color: white;
 }
+
+.pretty th .current {  
+  padding-right: 12px;  
+  background-repeat: no-repeat;  
+  background-position: right center;  
+}  
+.pretty th .asc {   
+  background-image: url(asc_arrow.png);   
+}  
+  
+.pretty th .desc {   
+  background-image: url(desc_arrow.png);   
+} 
 
 h1 {
     font-size: 24px;
